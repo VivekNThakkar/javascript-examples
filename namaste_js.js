@@ -2,6 +2,8 @@
 
 // Example 1
 
+/**
+
 console.log(x) // undefined
 console.log(getName()) // Namaste JS
 console.log(getSurame) // undefined
@@ -20,3 +22,13 @@ var getSurame2 = function () {
   console.log('Surname it is')
 }
 console.log(x) // 2
+
+ */
+
+// undefined vs not defined in JS 🤔 | Namaste JavaScript Ep. 6
+
+// Example 1
+console.log(a) // undefined
+var a = 7
+console.log(a) // 7
+console.log(x) // not defined

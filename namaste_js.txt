@@ -45,3 +45,49 @@ We can check the global Execution context on browser by putting a debugger and s
 
 -------------------------------------------------------------------------------------------------------------------------------------
 How functions work in JS ❤️ & Variable Environment | Namaste JavaScript Ep. 4
+var => functional scoped
+if a variable is not found in a function, it will search for that variable outside that function (function's parent function)
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------
+SHORTEST JS Program 🔥window & this keyword | Namaste JavaScript Ep. 5
+Empty file => is the shortest JS program
+JS engine creates "window" and "this"
+window => a object with lot of functions and variables. These are created by JS engine into the global space. We can access this anywhere in our JS program
+At global level, "this" points to the "window" object .
+"window" is actually a global object which is created along with the Global execution context.
+Whenver any JS program is run, a global object (window, incase of browser) is created, a Global Execution Context (GEC) is created and aling with that Execution context a "this" variable is created.
+
+JS engine in chrome is v8. Firefix, safari, internet explorer has its own engine.
+All these JS engines has a responsiblity to create this global object
+
+Global Object => incase of browser it is known as "window". incase of node it is something else. Wherever you run the JS program, it is different. But global object is always created.
+Even if JS file is empty, a global object is created.
+
+At the global level / base level / at the global Execution context,   this === window  // true
+But inside any function,   this === window // false
+
+
+Whenever a Execution context is created, a "this" is created along with it. Even for the functional Execution context anf global Execution context. 
+And at global level, "this" points to "window" (incase of browser) object.
+
+Any code in JS which is not inside a function is in global space
+If any code is inside any function, then that code is not in global space
+If we try to put any variable / function in "global space", these variables and functions gets attached to that global object (window, incase of browser). We can access that using "window" , window.variable_name or directly with the name variable_name (It assumes that youre referring to the global space).
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------
+undefined vs not defined in JS 🤔 | Namaste JavaScript Ep. 6
+When JS allocates memory to all the variables and functions, to the variables it tries to put a placeholder undefined. undefined is like taking memory.
+Not defined => when a variable has not been allocated memory
+
+JS is a loosely typed language (weakly typed language) => you can assign any datatype to the same variable anytime. 
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------
+The Scope Chain, 🔥Scope & Lexical Environment | Namaste JavaScript Ep. 7
