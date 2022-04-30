@@ -1,0 +1,47 @@
+-------------------------------------------------------------------------------------------------------------------------------------
+2. How JavaScript Works 🔥& Execution Context | Namaste JavaScript Ep.1
+JS is synchronous single-threaded language. Single threaded => js can execute one command at a time. synchronous => js can execute code in a specific order. JS can only go to next line once the current line has been finished executing
+Everything in javascript happens inside an "Execution context"
+
+Execution context has 2 components in it => 
+1. memory component (variable environment) => all variables and functions are stored as a key:value pair
+2. code component (thread of Execution) => this is the place where code is executed one line at a time.
+
+
+-------------------------------------------------------------------------------------------------------------------------------------
+3. How JavaScript Code is executed? ❤️& Call Stack | Namaste JavaScript Ep. 2
+When we run JS program, a Global Execution context is created.
+
+Execution context is created in 2 phases => 
+1. Memory Creation phase => JS allocates memory to all the variables (var) (key name => name of variable. value => undefined) AND functions (function) (key name => name of function. value => whole code of the function).
+2. Code Execution phase => JS once again runs through the whole JS program line by line & it executes the code now. As soon as JS encouters var n=2, it replaces the value of n by 2 in memory (replaces undefined by 2).
+Function invokation => whenever a function is invoked, a new Execution context is created (inside the Global Execution context's code Execution phase). This new Execution context again has 2 phases => memory Creation and code Execution phase . Memory allocation of variables and functions present inside the function takes place.
+Once the whole function is executed, this newly created Execution context (for that instance of that function) will be deleted as soon as function returns.
+Once whole JS program is finished running, the whole Global Execution context also gets deleted.
+
+JS manages all Execution context Creation, deletion, and the control => using stack (call stack) .JS has its own call stack.
+Call stack => everytime in the bottom of the stack, we have our Global Execution Context. Whenver JS program is run, this call stack is populated with this Global Execution context.
+Whenever a function is invoked, a new Execution context is created, this is put inside the stack. As soon as function returns, this new execution context gets poped out of the stack and control gets back to the next element in the stack.
+Again when a function is invoked, same process happens.
+After whole JS program is executed, Global Execution context is also popped out of the call stack and call stack gets empty
+CAll stack => is only for managing these Execution contexts.
+Call stack maintains the order of Execution of Execution contexts
+Call stack is also known as => Execution context stack, program stack, control stack, runtime stack, machine stack
+
+
+-------------------------------------------------------------------------------------------------------------------------------------
+4. Hoisting in JavaScript 🔥(variables & functions) | Namaste JavaScript Ep. 3
+Even before the code in JS starts executing, the memory is allocated to each and every variable (var) and functions (function).
+In case of variables, variable name get memory allocated with its value as undefined.
+In case of function, function name get memory allocated with its value as the whole code of the function.
+But if an arrow function/ normal function is saved in a variable, it wont be saved in memory during the memory Execution phase
+
+not defined => variable is not present in the code. Reference error
+undefined => variable is present, but no value is assigned to that variable
+
+We can check the global Execution context on browser by putting a debugger and searching inside "sources" -> "scope"
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------
+How functions work in JS ❤️ & Variable Environment | Namaste JavaScript Ep. 4
