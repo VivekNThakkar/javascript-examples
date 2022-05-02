@@ -136,3 +136,34 @@ Types of error:
 Which type of variable to use => const > let > var
 
 interview question => let & const are hoisted or not ?  they are in temporal deadzone and explain them the above things
+
+
+-------------------------------------------------------------------------------------------------------------------------------------
+BLOCK SCOPE & Shadowing in JS 🔥| Namaste JavaScript 🙏 Ep. 9
+
+“var” has functional scope.
+“let & const” has block scope.
+“block” is defined by this curly braces => { }. Block is also known as compound statement.  Block is used to combine multiple js statements into one group. This group of multiple statements can be used in a place where JS expects a single statement. eg. if condition's block. if (true) true OR if(true) {  }. "If" does not have any curly braces in its syntax 
+“block scope” means what all variables and functions we can access inside this block.
+var defined under the block is attached to global execution context memory. let and const inside the block are attached to block scope memory. They are stored in a separate memory space which is reserved for this block. You cannot access let and const defined in the block outside the block, whereas we can access var defined inside the block outside the block bcoz it is in the global scope.
+
+Shadowing:  if we have same named variable inside and outside the block, then the outside variable will be shadowed inside the bock.
+if 2/ multiple var variables of same name are declared in same functional scope, they all point to same memory location.  This is not the case in “let”, since it is block scoped.
+If a variable is shadowing something, it should not cross the boundary or the scope.
+“var” crosses the boundary of scope whereas “let” does not crosses the boundary of block.
+
+Block scope also follows lexical scope .
+
+var a = 100; let b = 200 { var a = 10; let b = 20; console.log(a); console.log(b) } console.log(a); console.log(b) // output=> 10  20  10  200 .
+
+let a = 10 { var a = 20 } // error // ‘.’ if a variable is shadowing something, it should not cross the boundary. Here inside var “a” is crossing the boundary .’. Syntax error: Identifier "a" has already been declared
+
+let a =10; function () { var a = 20 } //. No error. Since var a won’t cross the function boundary
+
+let a =10 { let a = 10 } // no error
+var a = 10 { let a = 20 } // no error ‘.’ “a” inside block won’t cross the block’s boundary.
+var a = 10 { var a = 10 } // no error // ‘.’ Both “a” refers to same memory location
+
+ 
+
+ scopes of normal functions and arrow functions are exactly same
