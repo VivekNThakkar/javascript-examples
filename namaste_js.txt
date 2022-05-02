@@ -91,3 +91,48 @@ JS is a loosely typed language (weakly typed language) => you can assign any dat
 
 -------------------------------------------------------------------------------------------------------------------------------------
 The Scope Chain, 🔥Scope & Lexical Environment | Namaste JavaScript Ep. 7
+Scope in JS is directly related to Lexical environment.
+Scope => it means where you can access a specific variable / function  in our code.
+Child can access the variables of parent . No vice versa.  Scope is directly dependent on the lexical environment.
+
+Lexical environment => Whenever an execution context is created, a lexical environment is also created. 
+” Lexical environment is the local memory along with the lexical environment of its parent””. “Lexical” as a term means “in-hierarchy / in a sequence”. 
+Example: if c() is inside a(), we can say that c() function is lexically sitting inside a() function. And a() is lexically inside the global scope. So whenever an execution context is created, we also get a reference to the lexical environment of its parent and that parent has a ref to the lexical env of its own parent and so on. So basically child can access variables of all his parents and their parents and so on….  In case of global execution context, the reference to the lexical env of its parent which is null (‘.’ Global context has no parent, since it itself is parent).
+Lexical scope rules say that code in one scope can access variables of either that scope or any scope outside of it.
+The way/mechanism of finding the variables (local context, if not than finding in parent and so on) is known as scope chaining.
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------
+let & const in JS 🔥Temporal Dead Zone | | Namaste JavaScript Ep. 8
+
+‘let’ & ‘const’ declarations are hoisted in js, but they are hoisted very differently than the ‘var’ declarations. Let and const both are in the temporal deadzone for time being.
+for all var, let, const cases, memory is allocated before actual code execution.  “var” variables are attached to global object, but in case of let and const they are also allocated memory  (ie. is called hoisting) but they are stored in diff memory space than global.  So you cannot access let and const before initialisation, it’ll give “reference” error (cannot access before initialisation) . You cannot access let and const which are present in diff memory case bcoz you cannot access this memory space before you have put in some value in it (and we know that value is put only when that line of code is executed).   In case of “var”, if they are accessed before initialisation, it’ll give “undefined”. 
+Temporal dead zone => it is the time since when this let and const variables were hoisted , till it is initialised some value / till the let/const code is executed. The time b/w them is called temporal deadzone. And whenever we try to access variable in its temporal deadzone, it gives reference error.
+Also let and const variables won’t be attached to “window/this” object, bcoz they are being maintained in a separate memory space (reserved space for let and const).
+const is same as let, but it is more strict then “let”.  You cannot just declare const without any value. You need to assign value to const during initialisation and cannot be changed after that OR ELSE it’ll give error even before a single line of code is executed.
+
+If we try to access let variable before initialisation, it'll give error => " cannot access before initialisation " and not " not defined "
+
+We cannot declare 2 same let variables / 2 same const variables in same scope (it’ll give error even before executing a single line of code => SyntaxError: No duplicate declaration). But this is not the case in var. we can declare multiple var with same name in same scope 
+let and var with same name in same scope is also not allowed
+
+For const, it should be declared and initialised together. You cannot assign value to it later 
+
+if no value is assigned to const during declaration, it will give error => "SyntaxError: Missing initializer in const declaration "
+If we assign a value "again" to const , it will give error => " TypeError: Assignment to constant variable " 
+
+Reference error: when JS engine tries to find out a specific variable inside the memory space and cannot access it.
+
+If we try to access let variable before declaration, it'll give error:  Reference error: cannot access "a" before initialization => bcoz at this point of time "a" is in the temporal dead zone
+If we try to access variable which is not declared anywhere, then we get ReferenceError: "a" is not defined
+
+Types of error:
+1. TypeError: eg. const => if we try to assign it the value after initialisation.  const a = 10; a = 20
+2. SyntaxError: eg. const => if we do not assign value to const variable during initialisation . As it expects some value during initialisation. const b;    eg. declaring 2/more let/const variables with same name
+3. ReferenceError => when js engine tries to find out a specific variable inside the memory space and you cannot access it. Accessing let/const variables before initialisation. Since they are in temporal deadzone.  Or if we try to access variable which is not defined in code.
+
+Which type of variable to use => const > let > var
+
+interview question => let & const are hoisted or not ?  they are in temporal deadzone and explain them the above things
