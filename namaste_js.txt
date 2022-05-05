@@ -164,6 +164,44 @@ let a =10 { let a = 10 } // no error
 var a = 10 { let a = 20 } // no error ‘.’ “a” inside block won’t cross the block’s boundary.
 var a = 10 { var a = 10 } // no error // ‘.’ Both “a” refers to same memory location
 
- 
+scopes of normal functions and arrow functions are exactly same
 
- scopes of normal functions and arrow functions are exactly same
+
+-------------------------------------------------------------------------------------------------------------------------------------
+Closures in JS 🔥 | Namaste JavaScript Episode 10
+
+Closures: It means that a function bind together with its lexical environment/scope .
+A function along with its lexical scope forms a closure. Lexical scope’s variable’s reference is binded and not the value (14:17) . The closure is formed with only those variables which are used in the function. If some variables from the lexical environment are not used, then they won’t be saved for future reference.
+
+A closure is the combination of a function bundled together (enclosed) with references to its surrounding state (the lexical environment).
+In other words, a closure gives you access to an outer function's scope from inner function.
+In JS, closures are created every time a function is created, at function creation time.
+
+
+Interview: What is closures ? Function along with its lexical scope bundled together forms a closure
+
+function x() {
+    var a = 7
+    function y() {
+        console.log(a)
+    }
+    return y
+}
+
+const z = x() // function { console.log(a) }
+z() // 7
+
+Uses of closures:
+module design pattern,
+currying
+functions like once
+memoize
+maintaining state in async world
+setTimeouts
+Iterators
+and many more...
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------
+setTimeout + Closures Interview Question 🔥 | Namaste 🙏 JavaScript Ep. 11
