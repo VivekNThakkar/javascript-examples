@@ -97,7 +97,7 @@ Child can access the variables of parent . No vice versa.  Scope is directly dep
 
 Lexical environment => Whenever an execution context is created, a lexical environment is also created. 
 ” Lexical environment is the local memory along with the lexical environment of its parent””. “Lexical” as a term means “in-hierarchy / in a sequence”. 
-Example: if c() is inside a(), we can say that c() function is lexically sitting inside a() function. And a() is lexically inside the global scope. So whenever an execution context is created, we also get a reference to the lexical environment of its parent and that parent has a ref to the lexical env of its own parent and so on. So basically child can access variables of all his parents and their parents and so on….  In case of global execution context, the reference to the lexical env of its parent which is null (‘.’ Global context has no parent, since it itself is parent).
+Example: if c() is inside a(), we can say that c() function is lexically sitting inside a() function. And a() is lexically inside the global scope. So whenever an execution context is created, we also get a "reference" (not value) to the lexical environment of its parent and that parent has a ref to the lexical env of its own parent and so on. So basically child can access variables of all his parents and their parents and so on….  In case of global execution context, the "reference" to the lexical env of its parent which is null (‘.’ Global context has no parent, since it itself is parent).
 Lexical scope rules say that code in one scope can access variables of either that scope or any scope outside of it.
 The way/mechanism of finding the variables (local context, if not than finding in parent and so on) is known as scope chaining.
 
@@ -171,7 +171,7 @@ scopes of normal functions and arrow functions are exactly same
 Closures in JS 🔥 | Namaste JavaScript Episode 10
 
 Closures: It means that a function bind together with its lexical environment/scope .
-A function along with its lexical scope forms a closure. Lexical scope’s variable’s reference is binded and not the value (14:17) . The closure is formed with only those variables which are used in the function. If some variables from the lexical environment are not used, then they won’t be saved for future reference.
+A function along with its lexical scope forms a closure. Lexical scope’s variable’s reference (not value) is binded and not the value (14:17) . The closure is formed with only those variables which are used in the function. If some variables from the lexical environment are not used, then they won’t be saved for future reference.
 
 A closure is the combination of a function bundled together (enclosed) with references to its surrounding state (the lexical environment).
 In other words, a closure gives you access to an outer function's scope from inner function.
@@ -205,3 +205,63 @@ and many more...
 
 -------------------------------------------------------------------------------------------------------------------------------------
 setTimeout + Closures Interview Question 🔥 | Namaste 🙏 JavaScript Ep. 11
+
+in setTimeout, the callback function forms a closure.
+in for loop, each time loop runs, a new "let" or "var" variable is created. In case of "let", all variables will have diff reference (since let is block scoped). But in case of "var", all variables will have same reference, since for each "var" with same name, all "var" point to same location
+
+
+-------------------------------------------------------------------------------------------------------------------------------------
+CRAZY JS INTERVIEW 🤯ft. Closures | Namaste 🙏 JavaScript Ep. 12
+
+What is closure in JS is ?
+A function along with a reference to its outer environment together forms a closure.
+Closure is a combination of a function and its lexical scope bundled together.
+Each and every function in JS has access to its outer lexical environment (access to variables and functions which is present in the environment of its parent). Even when this function is executed in some other scope (outside the original scope where it was present), it stills remembers its outer lexical environment where it was originally present in the code.
+
+parameters are also a part of the outer environment.
+
+Example:
+
+function outer(b) {
+    var a= 10
+    function inner() {
+        console.log(a, b)
+    }
+    return inner
+}
+outer(2)() // 10, 2
+var close = outer(2)
+close() // 10, 2
+
+
+Advantages of closure?
+used in module pattern, function currying, higher order functions (like memoize, once), helps in data hiding and encapsulation, 
+
+Data Hiding => suppose we have a variable and we want to like have some data privacy over it, so other functions or other pieces of code cannot have access to that particular data
+Example:
+function counter() {
+    var count = 0 // this variable can't be accessed by anyone outside this function. It is encapsulated.
+    return function incrementCounter() {
+        count++;
+        console.log(count)
+    }
+}
+var counter1 = counter()
+counter1() // 1
+
+
+Disadvantages of closure?
+There could be over-consumption of memory in closures bcoz everytime a closure is formed, it consumes a lot of memory & sometimes those variables are not garbage collected.
+It accumulates a lot of memory if we create a lot of closures in our program. Bcoz those variables are not garbage collected till the program expires. If not handled properly, it could lead to memory leaks and can freeze the browser.
+
+
+Garbage Collector?
+It is a program in browser / JS engine which frees up the unutilized memory.
+In C or C++, it is upto developers how we take memory, have access to the memory, allocate/deallocate memory.  In high level programming language like JS, most of the work is done by JS engine. SO there is a garbage collector in JS.
+Whenever there is some unused variables, it kind of like just takes it out of memory. It just frees up the memory whenver it finds out that the variables are no longer needed.
+
+
+Relation between garbage collector and closures ?
+When inner function forms a closure, it has access to its lexical environment. If any variable from lexical environment is used in inner function, its memory wont be freed even if the outer function execution is finished.
+But some of the modern browsers JS engine like v8 in chrome => they basically have smart garbage collection mechanism where they somehow finds out that these variables are unreachable and they smartly collect these garbage variables.
+Smartly collects => means it will garbage collect the variables from lexical environment if they are not referred in child functions
