@@ -1,3 +1,6 @@
+JavaScript is synchronous and single threaded language. => It can only do one thing at a time and in a specific order. Using callbacks, we can do async things in javascript.
+Node.js can be asynchronous and have non-blocking I/O
+
 -------------------------------------------------------------------------------------------------------------------------------------
 2. How JavaScript Works 🔥& Execution Context | Namaste JavaScript Ep.1
 JS is synchronous single-threaded language. Single threaded => js can execute one command at a time. synchronous => js can execute code in a specific order. JS can only go to next line once the current line has been finished executing
@@ -265,3 +268,110 @@ Relation between garbage collector and closures ?
 When inner function forms a closure, it has access to its lexical environment. If any variable from lexical environment is used in inner function, its memory wont be freed even if the outer function execution is finished.
 But some of the modern browsers JS engine like v8 in chrome => they basically have smart garbage collection mechanism where they somehow finds out that these variables are unreachable and they smartly collect these garbage variables.
 Smartly collects => means it will garbage collect the variables from lexical environment if they are not referred in child functions
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------
+FIRST CLASS FUNCTIONS 🔥ft. Anonymous Functions | Namaste JavaScript Ep. 13
+
+What is an Anonymous function? A function without a name
+You cannot create a function statement without a name.
+SO Anonymous functions are used in a place where functions are used as values
+var a = function() {
+    console.log("Hii")
+}
+
+What are first class functions ? also known as first class citizens
+Ability of functions to be used as values.
+The ability to use functions as values, assign it to a variable, can be passed as an argument to another functions and can be returned from the functions  is known as first class functions. This ability of functions is know as first class functions
+We can pass functions inside another functions as an arguments
+
+
+Difference b/w function statement, function expression, function declaration
+
+Function statement ( function declaration ) :  function a() { console.log(‘hey Vivek’); } => This way of creating a function is called function statement or function declaration
+Function expression: var b = function() { console.log(‘Vivek’); } => function acts like a value
+the main difference between function statement and expression is hoisting.
+
+named function expression => var b = function x2() { console.log("hiii") } => you cannot directly call x2() => x2 is not defined
+named function expression => var b = function x2() { console.log(x2) } => b() => xyz function will be printed
+
+difference between parameters & arguments ?
+var b = function(param1, param2) {
+    console.log('hey)
+}
+b(1,2) => 1 and 2 are called arguments => values that you pass isnide the function while calling the function
+
+callback functions
+Higher order functions
+arrow functions
+pure functions
+
+
+arrow function => come up as a part of ES6 (Ecma Script 2015). let, const, arrow functions are introduced in ES6
+
+
+-------------------------------------------------------------------------------------------------------------------------------------
+Callback Functions in JS ft. Event Listeners 🔥| Namaste JavaScript Ep. 14
+
+Callback function: 
+we can take a function and pass it into another function. The function which you pass into another function is called a callback function.
+Callback functions gives us access to the whole "asynchronous" world in a "synchronous" "single threaded language".
+It can only do one thing at a time and in a specific order. Using callbacks, we can do async things in javascript.
+
+For =>
+setTimeout(function(){
+    console.log('Heyy')
+}, 5000)
+For the above code, setTimeout will take this callback function and wil store it in a separate space and it'l attach a timer to it of 5000ms
+
+If you stop the code using debugger, async calls won't be affected. They will continue executing in background. Example => if you have a setTimeout of 5000ms and you put a debugger and stop the other code for 10 seconds, then as soon as you continue the code, the timer was already done with the timer and will execute once all sync calls are done.
+
+Async operations are run in background ( js assigns them to browser to do them ) ( eg. setTimeouts, api calls, etc ) and once async operation is done, it gets queued in the queue to be executed after all sync operations are done. Once sync operations are done, async operation’s callback functions gets executed.
+All functions, all callback functions, everything will be executed through single call stack . JS has only one call stack.  So if any operation blocks the call stack, this is called blocking the main thread.
+If a function is taking 30-40 seconds to execute and return a value and no async operation is present in that function, then the call stack will be blocked for 30-40 seconds till the execution of that function gets completed.  To avoid this, we can use Web Workers. Web workers are a separate thread apart from JS’s main thread. Web workers are multi-threaded. Web Workers are not part of JavaScript, they are a browser feature which can be accessed through JavaScript.
+We should always use async operations for things that will take time.
+
+Event listeners are heavy (they takes memory). They form a closure. Even when the call stack is empty, event listener still remains in memory along with its closure environment. Bcoz anytime a user can click on button and we will need even listeners for that.
+So good practise is to remove the event listeners when not needed anymore. Once we remove event listener, all the variables which were held by listeners will be garbage collected
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------
+Asynchronous JavaScript & EVENT LOOP from scratch 🔥 | Namaste JavaScript Ep.15
+
+Event Loop:
+JS is a synchronous single threaded language. It has 1 call stack and it can only do one thing at a time. This call stack is present inside JS engine. All the code of JS is executed inside this call stack.
+Whenever any JS program is run, a Global Execution Context (GEC) is created and is pushed into the call stack. For every function execution, a separate Execution context is created for that particular function and pushed into the same call stack.  Once function execution gets completed, its execution context is posed out of the call stack. And when whole JS program finishes running, GEC is also popped out of the call stack and thus call stack becomes empty
+The main job of call stack is to execute what comes inside it. It does not wait for anything. Time, tide and JS waits for none.  What if we want to execute something after 5 seconds?
+Execution context has memory and code in it. All code gets run in Code section. Execution context is pushed into the call stack. Call stack is inside the JS engine. And JS engine is inside the browser.  Browser has local storage, session storage, timer, interval, ability of communicating to the external world eg. to go the websites using url. 
+Browser has JS Engine -> JS Engine has call stack in it -> Our program runs in call stack.
+JS engine needs some ways to use the features of browser. Web APIs are used to use those features of browsers. Some of the web apis are : setTimeout(), DOM APIs document.getElemenById … , fetch(), localStorage, console, location, etc.  These all Web APIs are not a part of JS. You can access them directly or using “window” object (global object). eg. setTimeout() , window.setTimeout() , console.log(‘hey’) , window.console.log(‘hey’) . Broswers gives us access inside this call stack of JS engine . And since window object is present at global scope, we can access the web apis directly without the “window” keyword.
+event listener: it is asynchronous.  document.getElementbyId(“btn”).addEventListener(“click”, function callbackFn() { console.log(‘it is a callback function’) } ).  We need to destroy the event listeners, or else they will just be listening to event even if program gets executed and they use the memory space.
+
+console is synchronous. setTimeout is asynchronous.
+how setTimeout() works? setTimeout is the web Api of browser which can be used to access the timer feature of the browser.  setTimeout takes a callback function and delay as an argument. When a callback function is passed in the setTimeout, it basically registers a callback in the Web API’s environment and along with that it starts the timer for required delay.
+If code execution gets finished and even if setTimeout still hasn’t finished with the timer, the GEC gets poped out.  As soon as timer expires, callback function needs to go into the call stack to execute. But instead, callback function is pushed into the “Callback Queue”. The Job of Event Loop is to check this Callback Queue and push the callbacks from this callback queue into the call stack. Event Loop acts like a GateKeeper and checks whether we have something in the Callback Queue and if it has something, event loop pushes that into the call stack if and only if the call stack is empty . and as soon as this function gets executed, an execution context is created for this function in the call stack.
+
+Event loop’s only Job is to continuously monitor the call stack as well as the callback Queue. If the call stack is empty, and if event loops sees that there is a function in Callback Queue, it takes the function and pushes it into the call stack.
+
+fetch(): returns a promise and we need to pass a callback function to it which will be executed once promise is resolved.
+
+Micro task queue: it is similar to callback queue, but micro task queue has higher priority. All the functions in the mircrotask queue will be executed first and then the functions in callback queue will be executed. 1. All the callback functions which come through promises, 2. Mutation observer  will go inside this micro tasks queue.  eg. fetch(), api calls, promises,
+
+Callback queue ( task queue ): other callback functions that come from setTimeout, Dom apis event listeners like addEventListener goes inside this queue. 
+
+mutation observer: it keeps on checking whether there is some mutation in the Dom tree. If there is mutation on Dom tree, it can execute some callback function.
+
+synchronous code > micro tasks queue > macro tasks queue (callback queue) (task queue) (event queue)
+
+Micro tasks:  eg. mutation observer callbacks as well as promise callbacks
+Macro tasks: eg. setTimeout, setInterval, setImmediate, requestAnimationFrame, I/O, UI Rendering
+https://www.geeksforgeeks.org/what-are-the-microtask-and-macrotask-within-an-event-loop-in-javascript/
+https://stackoverflow.com/a/60210808/7307315
+
+At a time, only 1 callback function’s execution context is present in the call stack because event loop takes the callback function and pushes to callstack only when the call stack is empty. 
+
+Functions from “Micro Task Queue” gets executed only when “call stack” is empty. And functions from “Callback Queue” starts getting executed only when “Microtask Queue” is empty.
+
