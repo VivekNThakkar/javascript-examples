@@ -375,3 +375,58 @@ At a time, only 1 callback function’s execution context is present in the call
 
 Functions from “Micro Task Queue” gets executed only when “call stack” is empty. And functions from “Callback Queue” starts getting executed only when “Microtask Queue” is empty.
 
+
+
+-------------------------------------------------------------------------------------------------------------------------------------
+JS Engine EXPOSED 🔥 Google's V8 Architecture 🚀 | Namaste JavaScript Ep. 16
+
+Google’s V8 engine architecture:
+JS is everywhere. It can run inside browser, server, smartwatch, lightbulb, robots, etc. Its all possible because of “JS Runtime Environment” (JSRE).
+JS Runtime Environment is a container which has 1. JS Engine (call stack is inside this), 2. Set of APIs to connect to outer environment ( Web APIs ), 3. Event loop, 4. Callback queue, 5. Micro task queue, etc.
+
+To run JS code, we need JS engine.
+Set of APIs (Web APIs) present in JSRE are a group of global functiions . These functions are/can be different in different things. Eg. it is different in case of browser and nodejs eg.  nodejs doesn’t have DOM apis like document.getElementById, localStorage.  Common are setTimeout(), console.log() but internally they’re implemented very differently . These APIs gives access to superpowers which can be used in JS code.
+Browser has JS runtime env, Node.js has JS runtime environment therefore Nodejs can run JS code outside the browser. Nodejs is opensource JS runtime. It means, Nodejs has everything whic is required to run JS piece of code. Nodejs can run JS piece of code outside the browser.
+
+There are many different lists of JS engine available. All browsers have their own JS engine.
+
+JS Engine is not a machine. JS engine is just like a normal program/ code written in low-level languages. eg. Google’s V8 engine is written inside C++.
+JS engine is just a programm/code written by normal developers/programmer. This code takes in the high level JS code and converts the code into machine level code that can executed by the machine. Its like a normal program.
+
+Interpreteed language: Code is executed using an interpreter. Interpreter takes the code and executes it line by line. It does not know what will happen in next line. The code is “fastly executed” since it doesn’t have to wait for the code to be compiled First. It immediately starts executing.  
+
+Compiled language: Code is executed using compiler. Code is First compiled even before executing. After compiled, a new code is formed which is the optimised version of the code and then it is executed . New version of code is optimised , very fast and has lot of performance improvements . It has more “efficiency”
+
+JS is interpreter or compiler language ? It can behave as both. Everything is dependent on JS Engine
+When JS was initially created, it was supposed to be interpreted lang since browser don’t need the code to be compiled. But today in most of browsers & most of latest JS engines uses an interpreter and compiler both together. It depends on JS Engine whether its “purely interpreter” or “just in time compile” .  JIT Compilation (Just In Time Compilation) => JS engine uses both interpreter and compiler.
+
+Inside JS ENGINE => JSCode -> Parsing -> Compilation -> Execution
+
+During "parsing" phase, code gets broken down into tokens.
+Example =>  let a = 7
+Tokens => let, a, =, 7
+And after converting it into tokens, it passes it through "Syntax Parser"
+Syntax Parser => Converts code into AST (Abstract Syntax Tree)
+
+AST is then passed onto the "Compilation Phase"
+Compilation and Execution both go hand in hand
+
+In JS Engine, code gets parsed, after parsing code (converted into AST) goes to the interpreter . Interpreter converts high level code into  byte code and that code moves to "execution" step. And while it is doing so, it takes the help of the compiler to optimise the code. Compiler basically talks to the interpreter and while the code is being interpreted line by line , the compiler also basically tries to optimise the code as much as it can. It is not a one phase process , it can happen in multiple phases. All JS engines have their own algorithm of doing this. The code is getting compiled on the run time . That’s why its called just in time compilation. In some JS Engines there is AOT ( ahead of time compilation ), in this case the compiler takes a piece of code that is going to be executed later and tries to optimise it as much as it can.  It also produces byte code which then goes to execution phase. Execution is not possible without (memory heap and call stack ) of call stack.
+Memory heap is a place where all the memory is stored. It is constantly in sync with the call stack, garbage collector, etc . It is place where all variables and functions are assigned memory.
+Garbage Collector tries to free up memory space (memory heap) wherever possible (eg. wherever a function is not being used or we clear the timeout). It uses “Mark & Sweep” algorithm.
+Compiler does many other optimisations for the code like inlining,  copy elision, inline caching, etc while it is compiling the code
+
+V8 Engine =>
+V8 has a interpretter which is known as "ignition"
+V8 has a compiler know as "Turbo Fan" => optimising compiler => compiles the code very fast
+V8 has garbage collector => Orinoco (uses mark & sweep algorithm). Another is oilpan
+
+Browser, Nodejs, etc has JSRE
+
+JSRE (JS runtime environment) -> JS engine + web apis + callback queue + micro task queue + event loop
+JS engine -> has call stack and has many phases (Parsing -> Compilation -> Execution)
+
+JS is JIT compiled language
+
+There are few languages which are procedural programming languages, functional programming languages, object oriented languages. 
+We can use JS for any of the above type. We can do functional programming in JS as well as object oriented programming in JS.
